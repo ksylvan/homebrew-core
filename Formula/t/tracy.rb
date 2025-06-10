@@ -21,6 +21,7 @@ class Tracy < Formula
   depends_on "pkgconf" => :build
   depends_on "capstone"
   depends_on "freetype"
+  depends_on "zstd"
 
   on_macos do
     depends_on "glfw"
