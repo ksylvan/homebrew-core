@@ -5,6 +5,7 @@ class GolangciLint < Formula
       tag:      "v2.2.1",
       revision: "66496a99757549ab02ffbadeea72d9eb9d387fc5"
   license "GPL-3.0-only"
+  revision 1
   head "https://github.com/golangci/golangci-lint.git", branch: "master"
 
   bottle do
