@@ -1,8 +1,8 @@
 class Tmex < Formula
   desc "Minimalist tmux layout manager"
   homepage "https://github.com/evnp/tmex"
-  url "https://github.com/evnp/tmex/archive/refs/tags/v2.0.4.tar.gz"
-  sha256 "d1907435f607993b0dc2da90166ea6d2804b73f94cffdb52a7ca40e6bee63632"
+  url "https://github.com/evnp/tmex/archive/refs/tags/v2.0.5.tar.gz"
+  sha256 "7d10effd81f904689a09c82cd5d8f3f078fcc58fe5535e8c7a35658e84e33323"
   license "MIT"
 
   bottle do
