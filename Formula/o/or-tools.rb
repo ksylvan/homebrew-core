@@ -32,7 +32,7 @@ class OrTools < Formula
   depends_on "eigen"
   depends_on "openblas"
   depends_on "osi"
-  depends_on "protobuf"
+  depends_on "protobuf@29"
   depends_on "re2"
   depends_on "scip"
   uses_from_macos "zlib"
@@ -77,6 +77,12 @@ class OrTools < Formula
     else
       cmake_args << "-DCMAKE_BUILD_RPATH=#{lib};#{HOMEBREW_PREFIX}/lib"
     end
+
+    protobuf = Formula["protobuf@29"]
+    cmake_args += [
+      "-DProtobuf_INCLUDE_DIR=#{protobuf.opt_include}",
+      "-DProtobuf_LIBRARY=#{protobuf.opt_lib}/libprotobuf.dylib",
+    ]
     with_env(build_env) do
       system "cmake", "-S", ".", "-B", ".", *cmake_args, *std_cmake_args
       system "cmake", "--build", "."
@@ -85,14 +91,16 @@ class OrTools < Formula
 
     # Routing Solver
     system ENV.cxx, "-std=c++17", pkgshare/"simple_routing_program.cc",
-                    "-I#{include}", "-L#{lib}", "-lortools",
+                    "-I#{include}", "-I#{protobuf.opt_include}", "-L#{lib}",
+                    "-L#{protobuf.opt_lib}", "-lortools", "-lprotobuf",
                     *shell_output("pkg-config --cflags --libs absl_check absl_log").chomp.split,
                     "-o", "simple_routing_program"
     system "./simple_routing_program"
 
     # Sat Solver
     system ENV.cxx, "-std=c++17", pkgshare/"simple_sat_program.cc",
-                    "-I#{include}", "-L#{lib}", "-lortools",
+                    "-I#{include}", "-I#{protobuf.opt_include}", "-L#{lib}",
+                    "-L#{protobuf.opt_lib}", "-lortools", "-lprotobuf",
                     *shell_output("pkg-config --cflags --libs absl_check absl_log absl_raw_hash_set").chomp.split,
                     "-o", "simple_sat_program"
     system "./simple_sat_program"
