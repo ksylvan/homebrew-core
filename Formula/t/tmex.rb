@@ -27,6 +27,6 @@ class Tmex < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/tmex -v 2>&1")
 
-    assert_match "new-session -s test", shell_output("#{bin}/tmex test -tp 1224")
+    assert_match "new-session -s test", shell_output("#{bin}/tmex test -tp 1224 2>&1")
   end
 end
